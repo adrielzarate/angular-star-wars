@@ -1,16 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { CommonComponentsModule } from './components/common/common-components.module';
+import { LayoutComponentsModule } from './components/layout/layout-components.module';
+import { PlanetsComponent } from './pages/planets/planets.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlanetsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    // AppRoutingModule,
+    HttpClientModule,
+    LayoutComponentsModule,
+    CommonComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize, pluck, tap } from 'rxjs/operators';
-import { IPlanet } from './models/i-planet';
-import { PlanetsService } from './services/planets.service';
+import { IPlanet } from 'src/app/models/i-planet';
+import { PlanetsService } from 'src/app/services/planets.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-planets',
+  templateUrl: './planets.component.html',
+  styleUrls: ['./planets.component.scss']
 })
-export class AppComponent implements OnInit {
+export class PlanetsComponent implements OnInit {
 
   public loading = true;
   public planets$: Observable<IPlanet[]>;
@@ -28,4 +28,5 @@ export class AppComponent implements OnInit {
       })
     )
   }
+
 }

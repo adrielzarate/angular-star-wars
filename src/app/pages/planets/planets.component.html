@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <app-loading *ngIf="loading"></app-loading>
+
+    <div
+      *ngFor="let planet of planets$ | async"
+      class="col-3 mb-3"
+    >
+      <app-card
+        [data]="planet"
+      ></app-card>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col justify-content-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+
+</div>
