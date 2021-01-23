@@ -18,8 +18,10 @@ export class CharacterComponent implements OnInit {
   public loading = true;
   public characterData: ICharacter;
   public films: {title: string; id: string;}[];
+  public imageURL: string;
   private characterId: string;
   private destroy$: Subject<boolean> = new Subject<boolean>();
+
 
   constructor(
     private route: ActivatedRoute,
@@ -32,19 +34,14 @@ export class CharacterComponent implements OnInit {
 
     this.charactersService.getCharacterById(this.characterId)
     .pipe(
-      tap(data => this.characterData = data),
+      tap(data => {
+        this.characterData = data;
+        this.imageURL = Utils.createImageURL(this.characterData.name, 'characters');
+      }),
       switchMap((res: ICharacter) => {
         let films$ = this.createFilmsObserversList(res);
         return forkJoin(films$);
       }),
-      // tap(data => {
-      //   this.films = data.map(film => {
-      //     return {
-      //       title: film.title,
-      //       id: Utils.getIdFromURL(film.url)
-      //     };
-      //   })
-      // }),
       map(data => {
         return data.map(film => {
           return {

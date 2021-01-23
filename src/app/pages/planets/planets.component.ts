@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize, pluck, tap } from 'rxjs/operators';
+import { finalize, pluck } from 'rxjs/operators';
 import { IPlanet } from 'src/app/models/i-planet';
 import { PlanetsService } from 'src/app/services/planets.service';
 
@@ -22,7 +22,6 @@ export class PlanetsComponent implements OnInit {
     this.planets$ = this.planetsService.getPlanets()
     .pipe(
       pluck('results'),
-      tap(console.log),
       finalize(() => {
         this.loading = false;
       })

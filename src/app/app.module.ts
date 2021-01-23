@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { CommonComponentsModule } from './components/common/common-components.module';
 import { LayoutComponentsModule } from './components/layout/layout-components.module';
 import { PlanetsComponent } from './pages/planets/planets.component';
+import { FilmComponent } from './pages/film/film.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanetsComponent
+    PlanetsComponent,
+    FilmComponent
   ],
   imports: [
     BrowserModule,
