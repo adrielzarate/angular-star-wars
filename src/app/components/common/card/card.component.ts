@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Utils } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-card',
@@ -23,7 +24,7 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.data.name;
-    this.imageURL = this.createImageURL(this.title);
+    this.imageURL = Utils.createImageURL(this.title, 'planets');
   }
 
   public expandCard() {
@@ -57,9 +58,6 @@ export class CardComponent implements OnInit {
     this.expanded = false;
   }
 
-  private createImageURL(title: string): string {
-    const imageName = title.toLowerCase().replace(/\s+/g, '');
-    return `${imageName}.jpg`;
-  }
+
 
 }

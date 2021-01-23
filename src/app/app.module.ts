@@ -13,7 +13,6 @@ import { PlanetsComponent } from './pages/planets/planets.component';
   ],
   imports: [
     BrowserModule,
-    // AppRoutingModule,
     HttpClientModule,
     LayoutComponentsModule,
     CommonComponentsModule

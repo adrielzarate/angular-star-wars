@@ -1,3 +1,5 @@
+import { ISchema } from "./i-schema";
+
 export interface IPlanet {
   name: string;
   rotation_period: string;
@@ -13,4 +15,8 @@ export interface IPlanet {
   created: Date;
   edited: Date;
   url: string;
+}
+
+export interface IPlanets extends ISchema {
+  results: IPlanet[]
 }

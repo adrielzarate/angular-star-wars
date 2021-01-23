@@ -1,1 +1,12 @@
-<p>character works!</p>
+<br><br><br>
+
+<app-loading *ngIf="loading; else characterProfile"></app-loading>
+
+<ng-template #characterProfile>
+  <h3>{{ characterData.name }}</h3>
+  <ul>
+    <li *ngFor="let film of films">
+      <a [routerLink]="['/film', film.id]">{{film.title}}</a>
+    </li>
+  </ul>
+</ng-template>

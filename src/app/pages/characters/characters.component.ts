@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { finalize, pluck, tap } from 'rxjs/operators';
+import { ICharacter } from 'src/app/models/i-character';
+import { CharactersService } from 'src/app/services/characters.service';
 
 @Component({
   selector: 'app-characters',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CharactersComponent implements OnInit {
 
-  constructor() { }
+  public loading = true;
+  public characters$: Observable<ICharacter[]>;
+
+  constructor(
+    private charactersService: CharactersService
+  ) { }
 
   ngOnInit() {
+    this.characters$ = this.charactersService.getCharacters()
+    .pipe(
+      pluck('results'),
+      tap(console.log),
+      finalize(() => {
+        this.loading = false;
+      })
+    )
   }
 
 }

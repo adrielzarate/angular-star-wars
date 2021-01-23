@@ -1,7 +1,7 @@
 <div class="flip-card" #customCard [ngClass]="{'expanded': expanded}">
   <div class="flip-card-inner" [ngStyle]="myStyles" >
     <div class="flip-card-front">
-      <!-- <img [src]="imageURL" class="card-img-top" [alt]="description"> -->
+      <img [src]="imageURL" class="card-img-top">
       <h5 class="card-title">{{ title }}</h5>
       <button (click)="expandCard()">See details</button>
     </div>
