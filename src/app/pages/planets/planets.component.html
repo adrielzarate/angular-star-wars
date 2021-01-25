@@ -1,11 +1,12 @@
 <div class="container">
   <div class="row">
-    <app-loading *ngIf="loading"></app-loading>
 
     <app-search
       customPlaceholder="Search planet"
       (onSearchTermReady)="searchPlanets($event)"
     ></app-search>
+
+    <app-loading *ngIf="loading"></app-loading>
 
     <div
       *ngFor="let planet of planets$ | async"
@@ -18,12 +19,13 @@
   </div>
 
   <div class="row">
-    <br><br><br><br><br><br><br>
-  </div>
-
-  <div class="row">
     <div class="col justify-content-center">
-      <app-pagination></app-pagination>
+      <app-pagination
+        [previous]="previousPage"
+        [next]="nextPage"
+        [pagesLength]="pagesLength"
+        (onSelectPage)="updatePlantesPage($event)"
+      ></app-pagination>
     </div>
   </div>
 

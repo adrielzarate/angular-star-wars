@@ -12,7 +12,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   @Input() customPlaceholder: string = 'Search...';
   @Output() onSearchTermReady = new EventEmitter<string>();
-
   public searchForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -23,14 +22,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     .get('search')
     .valueChanges.pipe(
         startWith(''),
-        debounceTime(300),
-        // switchMap(valueToSearch => of(valueToSearch))
+        debounceTime(300)
     )
     .subscribe({
         next: searchTerm => {
             this.onSearchTermReady.emit(searchTerm);
         }
     });
+
   }
 
   ngOnDestroy() {}

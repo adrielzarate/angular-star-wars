@@ -11,7 +11,7 @@ export class CharactersService {
   /**
    * ???
    */
-  private readonly charactersApiURL = Utils.swApiURL + '/people';
+  private readonly charactersApiURL = Utils.swApiURL + '/people/';
 
   constructor(
     private httpClient: HttpClient
@@ -32,7 +32,7 @@ export class CharactersService {
    * @param characterId
    */
   public getCharacterById(characterId: string): Observable<ICharacter> {
-    const url = `${this.charactersApiURL}/${characterId}`;
+    const url = `${this.charactersApiURL}${characterId}`;
     return this.httpClient.get<ICharacter>(url);
   }
 
@@ -42,7 +42,7 @@ export class CharactersService {
    * @param characterName
    */
   public searchCharactersByName(characterName: string = ''): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}/?search=${characterName}`;
+    const url = `${this.charactersApiURL}?search=${characterName}`;
     return this.httpClient.get<ICharacters>(url);
   }
 
@@ -52,16 +52,18 @@ export class CharactersService {
    * @param pageNumber
    */
   public getCharactersByPage(pageNumber: number): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}/?page=${pageNumber}`;
+    const url = `${this.charactersApiURL}?page=${pageNumber}`;
     return this.httpClient.get<ICharacters>(url);
   }
 
   /**
    * ???
    *
+   * @param pageNumber
    */
-  public charactersHEAD(pageNumber: number): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}/?page=${pageNumber}`;
+  public getCharactersByPageHEAD(pageNumber: number): Observable<ICharacters> {
+    const url = `${this.charactersApiURL}?page=${pageNumber}`;
     return this.httpClient.head<ICharacters>(url);
   }
+
 }

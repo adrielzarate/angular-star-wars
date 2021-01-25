@@ -17,7 +17,7 @@ export class CharacterComponent implements OnInit {
 
   public loading = true;
   public characterData: ICharacter;
-  public films: {title: string; id: string;}[];
+  public films: {title: string; id: number;}[];
   public imageURL: string;
   private characterId: string;
   private destroy$: Subject<boolean> = new Subject<boolean>();
