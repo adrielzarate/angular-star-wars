@@ -2,6 +2,11 @@
   <div class="row">
     <app-loading *ngIf="loading"></app-loading>
 
+    <app-search
+      customPlaceholder="Search planet"
+      (onSearchTermReady)="searchPlanets($event)"
+    ></app-search>
+
     <div
       *ngFor="let planet of planets$ | async"
       class="col-3 mb-3"

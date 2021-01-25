@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CommonComponentsModule } from './components/common/common-components.module';
 import { LayoutComponentsModule } from './components/layout/layout-components.module';
-import { PlanetsComponent } from './pages/planets/planets.component';
 import { FilmComponent } from './pages/film/film.component';
+import { PlanetsComponent } from './pages/planets/planets.component';
 
 @NgModule({
   declarations: [
