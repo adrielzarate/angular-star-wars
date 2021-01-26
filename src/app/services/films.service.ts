@@ -31,7 +31,7 @@ export class FilmsService {
    *
    * @param filmId
    */
-  public getIFilmById(filmId: number): Observable<IFilm> {
+  public getIFilmById(filmId: string): Observable<IFilm> {
     const url = `${this.filmsApiURL}/${filmId}`;
     return this.httpClient.get<IFilm>(url);
   }

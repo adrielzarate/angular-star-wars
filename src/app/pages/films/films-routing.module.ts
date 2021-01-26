@@ -7,11 +7,13 @@ import { FilmsComponent } from './films.component';
 const routes: Routes = [
   {
     path: '',
-    component: FilmsComponent
-  },
-  {
-    path: ':id',
-    component: FilmComponent
+    component: FilmsComponent,
+    children: [
+      {
+        path: ':id',
+        component: FilmComponent
+      }
+    ]
   }
 ];
 

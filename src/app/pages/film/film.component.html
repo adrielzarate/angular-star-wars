@@ -1,1 +1,21 @@
-<p>film works!</p>
+<ng-container *ngIf="filmData$ | async">
+  <img src="" alt="">
+  <h2>{{ (filmData$ | async).title }}</h2>
+  <h5>Movie Info</h5>
+  <ul>
+    <li>
+      <span class="text-bold">Release Date</span>
+      <span>{{ (filmData$ | async).release_date }}</span>
+    </li>
+    <li>
+      <span class="text-bold">Director</span>
+      <span>{{ (filmData$ | async).director }}</span>
+    </li>
+    <li>
+      <span class="text-bold">Producer</span>
+      <span>{{ (filmData$ | async).producer }}</span>
+    </li>
+  </ul>
+  <h5>Opening Crawl</h5>
+  <p>{{ (filmData$ | async).opening_crawl }}</p>
+</ng-container>

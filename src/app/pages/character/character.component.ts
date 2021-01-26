@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { LoadingService } from 'src/app/components/common/loading/loading.service';
 import { ICharacter } from 'src/app/models/i-character';
 import { IFilm } from 'src/app/models/i-films';
 import { CharactersService } from 'src/app/services/characters.service';
@@ -15,7 +16,6 @@ import { Utils } from 'src/app/utils/utils';
 })
 export class CharacterComponent implements OnInit {
 
-  public loading = true;
   public characterData: ICharacter;
   public films: {title: string; id: number;}[];
   public imageURL: string;
@@ -26,7 +26,8 @@ export class CharacterComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private charactersService: CharactersService,
-    private filmsService: FilmsService
+    private filmsService: FilmsService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class CharacterComponent implements OnInit {
       }),
       takeUntil(this.destroy$),
       finalize(() => {
-        this.loading = false;
+        this.loadingService.updateDataLoading(false);
       })
     ).subscribe({
       next: data => {
@@ -76,7 +77,7 @@ export class CharacterComponent implements OnInit {
   private createFilmsObserversList(res: ICharacter): Observable<IFilm>[] {
     return res.films.map(film => {
       const filmId = Utils.getIdFromURL(film);
-      return this.filmsService.getIFilmById(filmId);
+      return this.filmsService.getIFilmById(`${filmId}`);
     });
   }
 }

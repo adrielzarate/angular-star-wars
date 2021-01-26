@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-2" *ngFor="let film of film$ | async; let i = index">
+      <img
+          [src]="film.imageURL"
+          (error)="setDefaultPic()"
+          class="card-img-top"
+        >
+        <h5>{{film.title}}</h5>
+        <button [routerLink]="(i + 1)">See details</button>
+    </div>
+
+    <router-outlet></router-outlet>
+
+  </div>
+</div>

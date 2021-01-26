@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, pluck, switchMap, tap } from 'rxjs/operators';
+import { LoadingService } from 'src/app/components/common/loading/loading.service';
 import { ICharacter } from 'src/app/models/i-character';
 import { CharactersService } from 'src/app/services/characters.service';
 import { Utils } from 'src/app/utils/utils';
@@ -13,7 +14,6 @@ import { Utils } from 'src/app/utils/utils';
 })
 export class CharactersComponent implements OnInit {
 
-  public loading: boolean = true;
   public itemsPerPage: number;
   public previousPage: string;
   public nextPage: string;
@@ -22,7 +22,8 @@ export class CharactersComponent implements OnInit {
   public characters$: Observable<ICharacter[]>;
 
   constructor(
-    private charactersService: CharactersService
+    private charactersService: CharactersService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {}
@@ -31,7 +32,6 @@ export class CharactersComponent implements OnInit {
    * ???
    */
   public searchCharacters(characterName:string): void {
-    this.loading = true;
     this.characters$ = this.charactersService.searchCharactersByName(characterName)
     .pipe(
       tap( data => {
@@ -45,7 +45,7 @@ export class CharactersComponent implements OnInit {
       pluck('results'),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
-        this.loading = false;
+        this.loadingService.updateDataLoading(false);
       })
     )
   }
@@ -54,7 +54,6 @@ export class CharactersComponent implements OnInit {
    * ???
    */
   public updateCharactersPage(pageNumber: number): void {
-    this.loading = true;
     this.characters$ = this.charactersService.getCharactersByPage(pageNumber)
     .pipe(
       tap( data => {
@@ -65,7 +64,7 @@ export class CharactersComponent implements OnInit {
       pluck('results'),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
-        this.loading = false;
+        this.loadingService.updateDataLoading(false);
       })
     )
   }

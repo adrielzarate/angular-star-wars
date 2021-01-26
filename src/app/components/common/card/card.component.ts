@@ -30,7 +30,7 @@ export class CardComponent implements OnInit {
     this.imageURL = Utils.createImageURL(this.title, this.imagesFolderName);
   }
 
-  setDefaultPic() {
+  public setDefaultPic() {
     this.imageURL = Utils.defaultImageURL;
   }
 

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, map, pluck, switchMap, tap } from 'rxjs/operators';
+import { LoadingService } from 'src/app/components/common/loading/loading.service';
 import { IPlanet } from 'src/app/models/i-planet';
 import { PlanetsService } from 'src/app/services/planets.service';
 import { Utils } from 'src/app/utils/utils';
@@ -13,14 +14,14 @@ import { Utils } from 'src/app/utils/utils';
 })
 export class PlanetsComponent implements OnInit {
 
-  public loading = true;
   public previousPage: string;
   public nextPage: string;
   public pagesLength: number = 0;
   public planets$: Observable<IPlanet[]>;
 
   constructor(
-    private planetsService: PlanetsService
+    private planetsService: PlanetsService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {}
@@ -29,7 +30,6 @@ export class PlanetsComponent implements OnInit {
    * ???
    */
   public searchPlanets(planetName:string): void {
-    this.loading = true;
     this.planets$ = this.planetsService.searchPlanetsByName(planetName)
     .pipe(
       tap( data => {
@@ -56,7 +56,7 @@ export class PlanetsComponent implements OnInit {
       }),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
-        this.loading = false;
+        this.loadingService.updateDataLoading(false);
       })
     )
   }
@@ -65,7 +65,7 @@ export class PlanetsComponent implements OnInit {
    * ???
    */
   public updatePlantesPage(pageNumber: number): void {
-    this.loading = true;
+
     this.planets$ = this.planetsService.getPlanetsByPage(pageNumber)
     .pipe(
       tap( data => {
@@ -90,7 +90,7 @@ export class PlanetsComponent implements OnInit {
       }),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
-        this.loading = false;
+        this.loadingService.updateDataLoading(false);
       })
     )
   }
