@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { finalize, pluck, switchMap, tap } from 'rxjs/operators';
+import { finalize, map, pluck, switchMap, tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/components/common/loading/loading.service';
 import { ICharacter } from 'src/app/models/i-character';
 import { CharactersService } from 'src/app/services/characters.service';
@@ -20,6 +20,7 @@ export class CharactersComponent {
   public pagesLength: number = 0;
   public currentPage: number = 1;
   public characters$: Observable<ICharacter[]>;
+  public sorted: boolean = false;
 
   constructor(
     private charactersService: CharactersService,
@@ -60,4 +61,23 @@ export class CharactersComponent {
       })
     )
   }
+
+  public sortTable(sortProperty: string) {
+    this.characters$ = this.characters$.pipe(
+      map(characters => {
+        return characters.sort((a, b) => {
+          if(this.sorted) {
+            if(a[sortProperty] < b[sortProperty]) return -1;
+            if(a[sortProperty] > b[sortProperty]) return 1;
+          } else {
+            if(a[sortProperty] < b[sortProperty]) return 1;
+            if(a[sortProperty] > b[sortProperty]) return -1;
+          }
+          return 0;
+        });
+      })
+    )
+    this.sorted = !this.sorted;
+  }
+
 }
