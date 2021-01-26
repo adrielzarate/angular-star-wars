@@ -7,12 +7,14 @@ import { LayoutComponentsModule } from './components/layout/layout-components.mo
 import { FilmComponent } from './pages/film/film.component';
 import { PlanetsComponent } from './pages/planets/planets.component';
 import { CacheInterceptor } from './services/cache.interceptor';
+import { ImagePreloadDirective } from './directives/image-preload.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlanetsComponent,
-    FilmComponent
+    FilmComponent,
+    ImagePreloadDirective
   ],
   imports: [
     BrowserModule,

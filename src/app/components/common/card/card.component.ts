@@ -30,6 +30,10 @@ export class CardComponent implements OnInit {
     this.imageURL = Utils.createImageURL(this.title, this.imagesFolderName);
   }
 
+  setDefaultPic() {
+    this.imageURL = Utils.defaultImageURL;
+  }
+
   public prepareCharacteristics(data) {
     const list: {key: string; value: string}[] = [];
     for ( const property in data ) {

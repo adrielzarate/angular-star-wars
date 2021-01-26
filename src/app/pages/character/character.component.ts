@@ -64,15 +64,19 @@ export class CharacterComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
+  setDefaultPic() {
+    this.imageURL = Utils.defaultImageURL;
+  }
+
   private createFilmsObserversList(res: ICharacter): Observable<IFilm>[] {
     return res.films.map(film => {
       const filmId = Utils.getIdFromURL(film);
       return this.filmsService.getIFilmById(filmId);
     });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

@@ -6,6 +6,11 @@ export class Utils {
   public static swApiURL = 'https://swapi.dev/api';
 
   /**
+   * ???
+   */
+  public static defaultImageURL = '../assets/img/unknown.jpg';
+
+  /**
    *
    * ????
    *

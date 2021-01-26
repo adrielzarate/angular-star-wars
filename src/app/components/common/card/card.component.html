@@ -4,7 +4,12 @@
 
     <div class="flip-card-front">
       <picture>
-        <img [src]="imageURL" class="card-img-top">
+        <img
+          [src]="imageURL"
+          (error)="setDefaultPic()"
+          class="card-img-top"
+        >
+        <!-- default="../assets/img/unknown.jpg"  -->
       </picture>
       <h5 class="card-title">{{ title }}</h5>
       <button class="btn btn-secondary" (click)="expandCard()">See details</button>

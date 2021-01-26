@@ -3,7 +3,10 @@
 <app-loading *ngIf="loading; else characterProfile"></app-loading>
 
 <ng-template #characterProfile>
-  <img [src]="imageURL">
+  <img
+    [src]="imageURL"
+    (error)="setDefaultPic()"
+  >
   <h3>{{ characterData.name }}</h3>
   <ul>
     <li *ngFor="let film of films">
