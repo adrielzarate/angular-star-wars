@@ -8,51 +8,20 @@ import { Utils } from '../utils/utils';
   providedIn: 'root'
 })
 export class FilmsService {
-  /**
-   * ???
-   */
-  private readonly filmsApiURL = Utils.swApiURL + '/films';
+
+  private readonly FILMS_API_URL = Utils.SW_API_URL + '/films';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  /**
-   * ???
-   *
-   */
-  public getIFilms(): Observable<IFilms> {
-    const url = `${this.filmsApiURL}`;
+  public getFilms(): Observable<IFilms> {
+    const url = `${this.FILMS_API_URL}`;
     return this.httpClient.get<IFilms>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param filmId
-   */
-  public getIFilmById(filmId: string): Observable<IFilm> {
-    const url = `${this.filmsApiURL}/${filmId}`;
+  public getFilmById(filmId: string): Observable<IFilm> {
+    const url = `${this.FILMS_API_URL}/${filmId}`;
     return this.httpClient.get<IFilm>(url);
-  }
-
-  /**
-   * ???
-   *
-   * @param filmTitle
-   */
-  public searchIFilmsByName(filmTitle: string = ''): Observable<IFilms> {
-    const url = `${this.filmsApiURL}/?search=${filmTitle}`;
-    return this.httpClient.get<IFilms>(url);
-  }
-
-  /**
-   * ???
-   *
-   * @param filmNumber
-   */
-  public getIFilmsByPage(filmNumber: number): Observable<IFilms> {
-    const url = `${this.filmsApiURL}/?page=${filmNumber}`;
-    return this.httpClient.get<IFilms>(url);
   }
 }

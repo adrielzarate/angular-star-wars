@@ -1,15 +1,17 @@
-<div class="d-flex h-100 text-center text-white bg-dark">
-<div class="cover-container d-flex w-100 h-100 p-3 pt-5 mx-auto flex-column">
+<div class="d-flex h-100 text-center">
+  <div class="cover-container d-flex w-100 h-100 mx-auto flex-column">
 
-  <app-navigation></app-navigation>
+    <app-navigation></app-navigation>
 
-  <main class="px-3">
-    <app-loading></app-loading>
-    <router-outlet></router-outlet>
-  </main>
+    <main class="px-3">
+      <app-loading></app-loading>
+      <router-outlet></router-outlet>
+    </main>
 
-  <app-footer></app-footer>
+    <app-footer class="mt-auto"></app-footer>
+
+  </div>
 </div>
-</div>
+
 
 

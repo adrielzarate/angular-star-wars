@@ -21,7 +21,7 @@ export class FilmsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.film$ = this.filmsService.getIFilms().pipe(
+    this.film$ = this.filmsService.getFilms().pipe(
       pluck('results'),
       map(filmsData => {
         return filmsData.map(film => {
@@ -38,8 +38,6 @@ export class FilmsComponent implements OnInit {
   }
 
   public setDefaultPic() {
-    this.imageURL = Utils.defaultImageURL;
+    this.imageURL = Utils.DEFAULT_IMAGE_URL;
   }
-
-
 }

@@ -1,14 +1,14 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-2" *ngFor="let film of film$ | async; let i = index">
-      <img
-          [src]="film.imageURL"
-          (error)="setDefaultPic()"
-          class="card-img-top"
-        >
-        <h5>{{film.title}}</h5>
-        <button [routerLink]="(i + 1)">See details</button>
+    <div class="col mb-3" *ngFor="let film of film$ | async; let i = index">
+      <div class="card h-100">
+        <img [src]="film.imageURL" (error)="setDefaultPic()" class="card-img-top">
+        <div class="card-body d-flex flex-column">
+          <h6 class="card-title mb-auto">{{film.title}}</h6>
+          <button  class="btn btn-secondary mt-2" [routerLink]="(i + 1)">See details</button>
+        </div>
+      </div>
     </div>
 
     <router-outlet></router-outlet>

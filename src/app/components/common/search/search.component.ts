@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { debounceTime, startWith } from 'rxjs/operators';
 
 @Component({
@@ -13,12 +14,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() customPlaceholder: string = 'Search...';
   @Output() onSearchTermReady = new EventEmitter<string>();
   public searchForm: FormGroup;
+  private searchFormSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({ search: '' });
-    this.searchForm
+    this.searchFormSubscription = this.searchForm
     .get('search')
     .valueChanges.pipe(
         startWith(''),
@@ -29,9 +31,9 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.onSearchTermReady.emit(searchTerm);
         }
     });
-
   }
 
-  ngOnDestroy() {}
-
+  ngOnDestroy() {
+    this.searchFormSubscription.unsubscribe();
+  }
 }

@@ -1,6 +1,6 @@
 <div class="flip-card" #customCard [ngClass]="{'expanded': expanded}">
 
-  <div class="flip-card-inner" [ngStyle]="myStyles" >
+  <div class="flip-card-inner" [ngStyle]="myStyles">
 
     <div class="flip-card-front">
       <picture>
@@ -10,7 +10,7 @@
           class="card-img-top"
         >
       </picture>
-      <h5 class="card-title">{{ title }}</h5>
+      <h5 class="card-title mt-1">{{ title }}</h5>
       <button class="btn btn-secondary" (click)="expandCard()">See details</button>
     </div>
 
@@ -20,9 +20,9 @@
         </div>
         <div class="content col-6 h-100">
           <h5 class="card-title my-5">{{ title }}</h5>
-          <ul *ngFor="let item of characteristics">
-            <li>
-              <span class="inline-block me-2 fw-bold">{{item.key}}:</span> <span class="inline-block">{{item.value}}</span>
+          <ul class="list-unstyled">
+            <li *ngFor="let item of characteristics">
+              <span class="text-capitalize inline-block me-2 fw-bold">{{item.title}}:</span> <span class="inline-block">{{item.value}}</span>
             </li>
           </ul>
           <button class="btn btn-secondary" (click)="closeCard()">Close</button>

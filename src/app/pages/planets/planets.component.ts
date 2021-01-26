@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, map, pluck, switchMap, tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/components/common/loading/loading.service';
@@ -12,7 +12,7 @@ import { Utils } from 'src/app/utils/utils';
   styleUrls: ['./planets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlanetsComponent implements OnInit {
+export class PlanetsComponent {
 
   public previousPage: string;
   public nextPage: string;
@@ -24,11 +24,6 @@ export class PlanetsComponent implements OnInit {
     private loadingService: LoadingService
   ) {}
 
-  ngOnInit() {}
-
-  /**
-   * ???
-   */
   public searchPlanets(planetName:string): void {
     this.planets$ = this.planetsService.searchPlanetsByName(planetName)
     .pipe(
@@ -61,9 +56,6 @@ export class PlanetsComponent implements OnInit {
     )
   }
 
-  /**
-   * ???
-   */
   public updatePlantesPage(pageNumber: number): void {
 
     this.planets$ = this.planetsService.getPlanetsByPage(pageNumber)

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, pluck, switchMap, tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/components/common/loading/loading.service';
@@ -12,7 +12,7 @@ import { Utils } from 'src/app/utils/utils';
   styleUrls: ['./characters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CharactersComponent implements OnInit {
+export class CharactersComponent {
 
   public itemsPerPage: number;
   public previousPage: string;
@@ -26,11 +26,6 @@ export class CharactersComponent implements OnInit {
     private loadingService: LoadingService
   ) { }
 
-  ngOnInit() {}
-
-  /**
-   * ???
-   */
   public searchCharacters(characterName:string): void {
     this.characters$ = this.charactersService.searchCharactersByName(characterName)
     .pipe(
@@ -50,9 +45,6 @@ export class CharactersComponent implements OnInit {
     )
   }
 
-  /**
-   * ???
-   */
   public updateCharactersPage(pageNumber: number): void {
     this.characters$ = this.charactersService.getCharactersByPage(pageNumber)
     .pipe(
@@ -68,19 +60,4 @@ export class CharactersComponent implements OnInit {
       })
     )
   }
-
-  /**
-   * ???
-   */
-  // public getPagesAmount(index: number): void {
-  //   this.charactersService.getCharactersByPageHEAD(index).subscribe({
-  //     next: _data => {
-  //       this.getPagesAmount(index + 1);
-  //     },
-  //     error: error => {
-  //       this.pagesLength = index;
-  //       this.pagesLengthReady = true;
-  //     }
-  //   })
-  // }
 }

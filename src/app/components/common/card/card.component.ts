@@ -1,6 +1,15 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Utils } from 'src/app/utils/utils';
 
+interface IDataType {
+  [key: string]: string
+}
+
+interface ICharacteristics {
+  title: string;
+  value: string;
+}
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -10,19 +19,21 @@ export class CardComponent implements OnInit {
 
   @ViewChild('customCard', {static: false}) customCard: ElementRef;
   @Input() imagesFolderName: string;
-  @Input() data: any;
+  @Input() data: IDataType;
 
   public expanded: boolean = false;
   public imageURL: string;
   public title: string;
+  public characteristics: ICharacteristics[];
   public myStyles: {
     width: string;
     height: string;
     transform: string;
   };
-  public characteristics: {key: string; value: string}[];
 
-  constructor() { }
+  private readonly LEFT_PADDING = 10;
+  private readonly TOP_PADDING = 50;
+  private readonly BOTTOM_PADDING = 10;
 
   ngOnInit() {
     this.title = this.data.name;
@@ -30,16 +41,16 @@ export class CardComponent implements OnInit {
     this.imageURL = Utils.createImageURL(this.title, this.imagesFolderName);
   }
 
-  public setDefaultPic() {
-    this.imageURL = Utils.defaultImageURL;
+  public setDefaultPic(): void {
+    this.imageURL = Utils.DEFAULT_IMAGE_URL;
   }
 
-  public prepareCharacteristics(data) {
-    const list: {key: string; value: string}[] = [];
+  public prepareCharacteristics(data: IDataType): ICharacteristics[] {
+    const list:  ICharacteristics[] = [];
     for ( const property in data ) {
       list.push(
         {
-          key: property,
+          title: property,
           value: data[property]
         }
       )
@@ -48,20 +59,16 @@ export class CardComponent implements OnInit {
   }
 
   public expandCard() {
-
     const cardWindowOffsetLeft = this.customCard.nativeElement.offsetLeft;
     const cardWindowOffsetTop = this.customCard.nativeElement.offsetTop;
     const windowScrollTop = window.pageYOffset;
-    const leftPadding = 10;
-    const topPadding = 40;
-    const bottomPadding = 10;
 
-    const transformX = -cardWindowOffsetLeft + leftPadding;
-    const transformY = -cardWindowOffsetTop + topPadding + windowScrollTop;
+    const transformX = -cardWindowOffsetLeft + this.LEFT_PADDING;
+    const transformY = -cardWindowOffsetTop + this.TOP_PADDING + windowScrollTop;
 
     this.myStyles = {
-      width: `calc(100vw - ${leftPadding * 2}px)`,
-      height: `calc(100vh - ${topPadding + bottomPadding}px)`,
+      width: `calc(100vw - ${this.LEFT_PADDING * 2}px)`,
+      height: `calc(100vh - ${this.TOP_PADDING + this.BOTTOM_PADDING}px)`,
       transform: `translate3d(${transformX}px, ${transformY}px, 0px) rotateY(180deg)`
     };
 
@@ -77,7 +84,4 @@ export class CardComponent implements OnInit {
 
     this.expanded = false;
   }
-
-
-
 }

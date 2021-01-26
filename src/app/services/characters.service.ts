@@ -8,62 +8,30 @@ import { Utils } from '../utils/utils';
   providedIn: 'root'
 })
 export class CharactersService {
-  /**
-   * ???
-   */
-  private readonly charactersApiURL = Utils.swApiURL + '/people/';
+
+  private readonly CHARACERS_API_URL = Utils.SW_API_URL + '/people/';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  /**
-   * ???
-   *
-   */
   public getCharacters(): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}`;
+    const url = `${this.CHARACERS_API_URL}`;
     return this.httpClient.get<ICharacters>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param characterId
-   */
   public getCharacterById(characterId: string): Observable<ICharacter> {
-    const url = `${this.charactersApiURL}${characterId}`;
+    const url = `${this.CHARACERS_API_URL}${characterId}`;
     return this.httpClient.get<ICharacter>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param characterName
-   */
   public searchCharactersByName(characterName: string = ''): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}?search=${characterName}`;
+    const url = `${this.CHARACERS_API_URL}?search=${characterName}`;
     return this.httpClient.get<ICharacters>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param pageNumber
-   */
   public getCharactersByPage(pageNumber: number): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}?page=${pageNumber}`;
+    const url = `${this.CHARACERS_API_URL}?page=${pageNumber}`;
     return this.httpClient.get<ICharacters>(url);
   }
-
-  /**
-   * ???
-   *
-   * @param pageNumber
-   */
-  public getCharactersByPageHEAD(pageNumber: number): Observable<ICharacters> {
-    const url = `${this.charactersApiURL}?page=${pageNumber}`;
-    return this.httpClient.head<ICharacters>(url);
-  }
-
 }

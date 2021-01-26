@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Utils } from 'src/app/utils/utils';
 
 @Component({
@@ -7,7 +7,7 @@ import { Utils } from 'src/app/utils/utils';
   styleUrls: ['./pagination.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaginationComponent implements OnInit, OnChanges {
+export class PaginationComponent implements OnChanges {
 
   @Output() onSelectPage = new EventEmitter<number>();
   @Input() previous: string = null;
@@ -16,14 +16,16 @@ export class PaginationComponent implements OnInit, OnChanges {
   public pagesList: string[] = [];
   public currentPage: string = '1';
 
-  constructor() { }
-
-  ngOnInit() { }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes.pagesLength) {
       this.pagesList = this.createPagesList(changes.pagesLength.currentValue);
     }
+  }
+
+  public updatePage(url: string): void {
+    const pageId = Utils.getIdFromURL(url);
+    this.currentPage = `${pageId}`;
+    this.onSelectPage.emit(pageId);
   }
 
   private createPagesList(pagesLength: number): string[] {
@@ -32,11 +34,5 @@ export class PaginationComponent implements OnInit, OnChanges {
       list.push(`${i + 1}`);
     }
     return list;
-  }
-
-  public updatePage(url: string) {
-    const pageId = Utils.getIdFromURL(url);
-    this.currentPage = `${pageId}`;
-    this.onSelectPage.emit(pageId);
   }
 }

@@ -8,51 +8,30 @@ import { Utils } from '../utils/utils';
   providedIn: 'root'
 })
 export class PlanetsService {
-  /**
-   * ???
-   */
-  private readonly planetsApiURL = Utils.swApiURL + '/planets';
+
+  private readonly PLANETS_API_URL = Utils.SW_API_URL + '/planets';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  /**
-   * ???
-   *
-   */
   public getPlanets(): Observable<IPlanets> {
-    const url = `${this.planetsApiURL}`;
+    const url = `${this.PLANETS_API_URL}`;
     return this.httpClient.get<IPlanets>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param planetId
-   */
   public getPlanetById(planetId: string): Observable<IPlanet> {
-    const url = `${this.planetsApiURL}/${planetId}`;
+    const url = `${this.PLANETS_API_URL}/${planetId}`;
     return this.httpClient.get<IPlanet>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param planetName
-   */
   public searchPlanetsByName(planetName: string = ''): Observable<IPlanets> {
-    const url = `${this.planetsApiURL}/?search=${planetName}`;
+    const url = `${this.PLANETS_API_URL}/?search=${planetName}`;
     return this.httpClient.get<IPlanets>(url);
   }
 
-  /**
-   * ???
-   *
-   * @param pageNumber
-   */
   public getPlanetsByPage(pageNumber: number): Observable<IPlanets> {
-    const url = `${this.planetsApiURL}/?page=${pageNumber}`;
+    const url = `${this.PLANETS_API_URL}/?page=${pageNumber}`;
     return this.httpClient.get<IPlanets>(url);
   }
 }

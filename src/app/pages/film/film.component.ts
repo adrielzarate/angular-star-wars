@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/components/common/loading/loading.service';
 import { FilmsService } from 'src/app/services/films.service';
+import { Utils } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-film',
@@ -13,6 +14,7 @@ import { FilmsService } from 'src/app/services/films.service';
 export class FilmComponent implements OnInit {
 
   public filmId: string;
+  public imageURL: string;
   public filmData$: Observable<any>;
 
   constructor(
@@ -23,15 +25,18 @@ export class FilmComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getIFilmById();
+    this.getFilmById();
     this.router.events.subscribe(event => {
-      this.getIFilmById();
+      this.getFilmById();
     });
   }
 
-  public getIFilmById() {
+  public getFilmById() {
     this.filmId = this.route.snapshot.paramMap.get('id');
-    this.filmData$ = this.filmsService.getIFilmById(this.filmId).pipe(
+    this.filmData$ = this.filmsService.getFilmById(this.filmId).pipe(
+      tap(filmData => {
+        this.imageURL = Utils.createImageURL(filmData.title, 'films');
+      }),
       finalize(() => {
         this.loadingService.updateDataLoading(false);
       })

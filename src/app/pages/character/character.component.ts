@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Observable, Subject } from 'rxjs';
-import { finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { forkJoin, Observable, Subscription } from 'rxjs';
+import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/components/common/loading/loading.service';
 import { ICharacter } from 'src/app/models/i-character';
 import { IFilm } from 'src/app/models/i-films';
@@ -20,7 +20,7 @@ export class CharacterComponent implements OnInit {
   public films: {title: string; id: number;}[];
   public imageURL: string;
   private characterId: string;
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private getCharacterByIdSubscription: Subscription;
 
 
   constructor(
@@ -33,7 +33,7 @@ export class CharacterComponent implements OnInit {
   ngOnInit() {
     this.characterId = this.route.snapshot.paramMap.get('id');
 
-    this.charactersService.getCharacterById(this.characterId)
+    this.getCharacterByIdSubscription = this.charactersService.getCharacterById(this.characterId)
     .pipe(
       tap(data => {
         this.characterData = data;
@@ -51,7 +51,6 @@ export class CharacterComponent implements OnInit {
           };
         })
       }),
-      takeUntil(this.destroy$),
       finalize(() => {
         this.loadingService.updateDataLoading(false);
       })
@@ -66,18 +65,17 @@ export class CharacterComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.getCharacterByIdSubscription.unsubscribe();
   }
 
-  setDefaultPic() {
-    this.imageURL = Utils.defaultImageURL;
+  public setDefaultPic() {
+    this.imageURL = Utils.DEFAULT_IMAGE_URL;
   }
 
   private createFilmsObserversList(res: ICharacter): Observable<IFilm>[] {
     return res.films.map(film => {
       const filmId = Utils.getIdFromURL(film);
-      return this.filmsService.getIFilmById(`${filmId}`);
+      return this.filmsService.getFilmById(`${filmId}`);
     });
   }
 }

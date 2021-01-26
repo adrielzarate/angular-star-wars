@@ -1,53 +1,24 @@
 export class Utils {
 
-  /**
-   * ???
-   */
-  public static swApiURL = 'https://swapi.dev/api';
+  public static readonly SW_API_URL = 'https://swapi.dev/api';
 
-  /**
-   * ???
-   */
-  public static defaultImageURL = '../assets/img/unknown.jpg';
+  public static DEFAULT_IMAGE_URL = '../assets/img/unknown.jpg';
 
-  /**
-   *
-   * ????
-   *
-   * @param title
-   * @param folderName
-   */
   public static createImageURL(title: string, folderName: string): string {
     const imageName = title.toLowerCase().replace(/\s+/g, '');
     return `../assets/img/${folderName}/${imageName}.jpg`;
   }
 
-  /**
-   *
-   */
   public static getIdFromURL(url: string): number {
     const id = url.match(/\d+/g)[0]
     return Number(id);
   }
 
-  /**
-   * ???
-   *
-   * @param characersCount
-   * @param charactersPerPage
-   */
   public static getPagesAmount(characersCount: number, charactersPerPage: number): number {
     return Math.ceil(characersCount/charactersPerPage);
   }
 
-  /**
-   * ???
-   *
-   * @param previousPage
-   * @param nextPage
-   * @param pagesLength
-   */
-  public static getCurrentPage(previousPage, nextPage, pagesLength) {
+  public static getCurrentPage(previousPage: string, nextPage: string, pagesLength: number) {
     if (!previousPage) return 1;
     else if (!nextPage) return pagesLength;
     else return this.getIdFromURL(nextPage) - 1;

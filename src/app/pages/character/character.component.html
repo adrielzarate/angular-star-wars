@@ -5,8 +5,9 @@
     [src]="imageURL"
     (error)="setDefaultPic()"
   >
-  <h3>{{ characterData.name }}</h3>
-  <ul>
+  <h3 class="mt-3">{{ characterData.name }}</h3>
+  <h5>Films</h5>
+  <ul class="list-unstyled">
     <li *ngFor="let film of films">
       <a [routerLink]="['/films', film.id]">{{film.title}}</a>
     </li>
