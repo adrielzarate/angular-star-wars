@@ -10,11 +10,11 @@ export interface IPlanet {
   terrain: string;
   surface_water: string;
   population: string;
-  residents: string[];
-  films: string[];
-  created: Date;
-  edited: Date;
-  url: string;
+  residents?: string[];
+  films?: string[];
+  created?: Date;
+  edited?: Date;
+  url?: string;
 }
 
 export interface IPlanets extends ISchema {

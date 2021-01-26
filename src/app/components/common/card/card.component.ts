@@ -9,6 +9,7 @@ import { Utils } from 'src/app/utils/utils';
 export class CardComponent implements OnInit {
 
   @ViewChild('customCard', {static: false}) customCard: ElementRef;
+  @Input() imagesFolderName: string;
   @Input() data: any;
 
   public expanded: boolean = false;
@@ -19,12 +20,27 @@ export class CardComponent implements OnInit {
     height: string;
     transform: string;
   };
+  public characteristics: {key: string; value: string}[];
 
   constructor() { }
 
   ngOnInit() {
     this.title = this.data.name;
-    this.imageURL = Utils.createImageURL(this.title, 'planets');
+    this.characteristics = this.prepareCharacteristics(this.data);
+    this.imageURL = Utils.createImageURL(this.title, this.imagesFolderName);
+  }
+
+  public prepareCharacteristics(data) {
+    const list: {key: string; value: string}[] = [];
+    for ( const property in data ) {
+      list.push(
+        {
+          key: property,
+          value: data[property]
+        }
+      )
+    }
+    return list;
   }
 
   public expandCard() {

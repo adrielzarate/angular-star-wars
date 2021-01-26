@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { finalize, pluck, switchMap, tap } from 'rxjs/operators';
+import { finalize, map, pluck, switchMap, tap } from 'rxjs/operators';
 import { IPlanet } from 'src/app/models/i-planet';
 import { PlanetsService } from 'src/app/services/planets.service';
 import { Utils } from 'src/app/utils/utils';
@@ -39,6 +39,21 @@ export class PlanetsComponent implements OnInit {
         }
       ),
       pluck('results'),
+      map(planetData => {
+        return planetData.map(planet => {
+          return {
+            name: planet.name,
+            rotation_period: planet.rotation_period,
+            orbital_period: planet.orbital_period,
+            diameter: planet.diameter,
+            climate: planet.climate,
+            gravity: planet.gravity,
+            terrain: planet.terrain,
+            surface_water: planet.surface_water,
+            population: planet.population
+          };
+        });
+      }),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
         this.loading = false;
@@ -58,6 +73,21 @@ export class PlanetsComponent implements OnInit {
         this.nextPage = data.next;
       }),
       pluck('results'),
+      map(planetData => {
+        return planetData.map(planet => {
+          return {
+            name: planet.name,
+            rotation_period: planet.rotation_period,
+            orbital_period: planet.orbital_period,
+            diameter: planet.diameter,
+            climate: planet.climate,
+            gravity: planet.gravity,
+            terrain: planet.terrain,
+            surface_water: planet.surface_water,
+            population: planet.population
+          };
+        });
+      }),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
         this.loading = false;

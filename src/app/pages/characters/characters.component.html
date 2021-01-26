@@ -19,7 +19,7 @@
       <tbody>
         <tr *ngFor="let character of characters$ | async; let i = index">
           <td>
-            <a [routerLink]="['/characters', (10 * (currentPage - 1) + i + 1 )]">{{character.name}}</a>
+            <a [routerLink]="['/characters', (itemsPerPage * (currentPage - 1) + i + 1 )]">{{character.name}}</a>
           </td>
           <td>{{character.birth_year}}</td>
           <td>{{character.gender}}</td>

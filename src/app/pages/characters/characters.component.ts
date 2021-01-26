@@ -14,6 +14,7 @@ import { Utils } from 'src/app/utils/utils';
 export class CharactersComponent implements OnInit {
 
   public loading: boolean = true;
+  public itemsPerPage: number;
   public previousPage: string;
   public nextPage: string;
   public pagesLength: number = 0;
@@ -34,11 +35,11 @@ export class CharactersComponent implements OnInit {
     this.characters$ = this.charactersService.searchCharactersByName(characterName)
     .pipe(
       tap( data => {
+        this.itemsPerPage = data.results.length;
         this.previousPage = data.previous;
         this.nextPage = data.next;
         this.pagesLength = Utils.getPagesAmount(data.count, data.results.length);
         this.currentPage = Utils.getCurrentPage(this.previousPage, this.nextPage, this.pagesLength);
-        console.log('this.currentPage', this.currentPage);
         }
       ),
       pluck('results'),
@@ -60,7 +61,6 @@ export class CharactersComponent implements OnInit {
         this.previousPage = data.previous;
         this.nextPage = data.next;
         this.currentPage = Utils.getCurrentPage(this.previousPage, this.nextPage, this.pagesLength);
-        console.log('this.currentPage', this.currentPage);
       }),
       pluck('results'),
       switchMap(valueToSearch => of(valueToSearch)),
