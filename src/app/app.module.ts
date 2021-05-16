@@ -6,11 +6,19 @@ import { CommonComponentsModule } from './components/common/common-components.mo
 import { LayoutComponentsModule } from './components/layout/layout-components.module';
 import { PlanetsComponent } from './pages/planets/planets.component';
 import { CacheInterceptor } from './services/cache.interceptor';
+import { IdComponent } from './pages/id/id.component';
+import { HomeComponent } from './pages/home/home.component';
+import { InnerComponent } from './pages/inner/inner.component';
+import { ChildComponent } from './pages/home/child/child.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanetsComponent
+    PlanetsComponent,
+    IdComponent,
+    HomeComponent,
+    InnerComponent,
+    ChildComponent,
   ],
   imports: [
     BrowserModule,
