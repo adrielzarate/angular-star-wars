@@ -17,6 +17,7 @@ export interface ICharacter {
   created: Date;
   edited: Date;
   url: string;
+  id: number;
 }
 
 export interface ICharacters extends ISchema {

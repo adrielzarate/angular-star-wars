@@ -39,6 +39,12 @@ export class CharactersComponent {
         }
       ),
       pluck('results'),
+      map(charactersList => {
+        return charactersList.map((character, i) => {
+          const id = this.itemsPerPage * (this.currentPage - 1) + i + 1;
+          return {...character, id};
+        });
+      }),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
         this.loadingService.updateDataLoading(false);
@@ -55,6 +61,12 @@ export class CharactersComponent {
         this.currentPage = Utils.getCurrentPage(this.previousPage, this.nextPage, this.pagesLength);
       }),
       pluck('results'),
+      map(charactersList => {
+        return charactersList.map((character, i) => {
+          const id = this.itemsPerPage * (this.currentPage - 1) + i + 1;
+          return {...character, id};
+        });
+      }),
       switchMap(valueToSearch => of(valueToSearch)),
       finalize(() => {
         this.loadingService.updateDataLoading(false);

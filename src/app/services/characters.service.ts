@@ -9,29 +9,29 @@ import { Utils } from '../utils/utils';
 })
 export class CharactersService {
 
-  private readonly CHARACERS_API_URL = Utils.SW_API_URL + '/people/';
+  private readonly CHARACTERS_API_URL = Utils.SW_API_URL + '/people/';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
   public getCharacters(): Observable<ICharacters> {
-    const url = `${this.CHARACERS_API_URL}`;
+    const url = `${this.CHARACTERS_API_URL}`;
     return this.httpClient.get<ICharacters>(url);
   }
 
   public getCharacterById(characterId: string): Observable<ICharacter> {
-    const url = `${this.CHARACERS_API_URL}${characterId}`;
+    const url = `${this.CHARACTERS_API_URL}${characterId}`;
     return this.httpClient.get<ICharacter>(url);
   }
 
   public searchCharactersByName(characterName: string = ''): Observable<ICharacters> {
-    const url = `${this.CHARACERS_API_URL}?search=${characterName}`;
+    const url = `${this.CHARACTERS_API_URL}?search=${characterName}`;
     return this.httpClient.get<ICharacters>(url);
   }
 
   public getCharactersByPage(pageNumber: number): Observable<ICharacters> {
-    const url = `${this.CHARACERS_API_URL}?page=${pageNumber}`;
+    const url = `${this.CHARACTERS_API_URL}?page=${pageNumber}`;
     return this.httpClient.get<ICharacters>(url);
   }
 }
